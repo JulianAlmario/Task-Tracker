@@ -19,7 +19,7 @@ const CreateTask: React.FC = () => {
     return (
      <WindowDialogue>
         <div className="bg-white rounded-xl shadow p-6 px-10 transition-all relative overflow-y-auto max-h-[80vh]">
-        <button onClick={changestate} className="absolute right-3 top-2 cursor-pointer">
+        <button onClick={()=>changestate(1)} className="absolute right-3 top-2 cursor-pointer">
            <X className='text-red-600'/>
           </button>
             <h2 className="text-2xl font-bold mb-4 text-center text-blue-700">Create Task</h2>
@@ -32,7 +32,7 @@ const CreateTask: React.FC = () => {
                         type="text"
                         id="title"
                         value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+                        onChange={(e) => {if(e.target.value.length<=18){setTitle(e.target.value)}}}
                         className="shadow appearance-none border focus:border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-700 focus:shadow-outline"
                         placeholder="Task Title"
                     />
@@ -62,7 +62,7 @@ const CreateTask: React.FC = () => {
                     />
                 </div>
                 <div className="flex items-center justify-between">
-                    <button onClick={()=>changestate()}
+                    <button onClick={()=>changestate(1)}
                         type="submit"
                         className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 cursor-pointer mx-auto rounded-sm transition duration-150"
                     >

@@ -2,10 +2,14 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { Trash2,Ellipsis,ChevronLeft,ChevronRight } from 'lucide-react';
-import { TypeTask } from '../core/interfaces/Taskprops';
+import { Info,Trash2,Ellipsis,ChevronLeft,ChevronRight } from 'lucide-react';
+import { TaskProps } from '../core/interfaces/Taskprops';
+import { TaskDetail } from './TaskDetail';
+import { useWindowStore } from '../states/WindowStates';
+import { WindowDelete } from './WindowDelete';
+import { WindowConfirm } from './windowConfirm';
 
-export function ButtonMenu(TypeTask:TypeTask) {
+export function ButtonMenu(Task:TaskProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -15,7 +19,11 @@ export function ButtonMenu(TypeTask:TypeTask) {
     setAnchorEl(null);
   };
 
+  const {changestate,AsignDetail}=useWindowStore();
+  const [OpenDeleteWindow,SetOpenDeleteWindow]=React.useState(false);
+  const [OpenConfirmWindow,SetOpenConfirmWindow]=React.useState(false);
   return (
+    <>
     <div>
       <Button
         id="basic-button"
@@ -36,22 +44,40 @@ export function ButtonMenu(TypeTask:TypeTask) {
           'aria-labelledby': 'basic-button',
         }}
       >
-        {TypeTask.type==='In Progress'&&
+        <MenuItem onClick={()=>{
+          AsignDetail(Task.title, Task.description ?? '', Task.limitDate);
+          changestate(2);
+          handleClose();}}>
+        <div className='flex justify-between gap-2 w-full text-blue-600'>
+              <span>Details</span> <Info className='size-5 my-auto'/>
+            </div>
+        </MenuItem>
+        {Task.typeTask.type==='In Progress'&&
           <MenuItem onClick={handleClose}>
             <div className='flex justify-between gap-2 w-full'>
               <span>Not Doing</span> <ChevronLeft/>
             </div>
           </MenuItem>
         }
-        {(TypeTask.type === 'Pending' || TypeTask.type === 'In Progress') && (
-        <MenuItem onClick={handleClose}>
+        {(Task.typeTask.type === 'Pending' || Task.typeTask.type === 'In Progress') && (
+        <MenuItem onClick={()=>{
+          if(Task.typeTask.type==='In Progress'){
+            SetOpenConfirmWindow(true);
+          }
+          handleClose();}}>
         <div className='flex justify-between gap-2 w-full'>
-              <span>{TypeTask.type==='In Progress'?"Completed":"Doing"}</span> <ChevronRight/>
+              <span>{Task.typeTask.type==='In Progress'?"Completed":"Doing"}</span> <ChevronRight/>
             </div>
           </MenuItem>
             )}
-        <MenuItem onClick={handleClose}><div className='text-red-600 flex justify-between gap-2 w-full'><span>Delete</span> <Trash2/></div></MenuItem>
+        <MenuItem onClick={()=>{handleClose();
+          SetOpenDeleteWindow(true);
+        }}><div className='text-red-600 flex justify-between gap-2 w-full'><span>Delete</span> <Trash2 className='size-5.5 my-auto'/></div></MenuItem>
       </Menu>
     </div>
+    <TaskDetail/>
+    <WindowDelete open={OpenDeleteWindow} close={()=>SetOpenDeleteWindow(false)} />
+    <WindowConfirm open={OpenConfirmWindow} close={()=>SetOpenConfirmWindow(false)}/>
+    </>
   );
 }

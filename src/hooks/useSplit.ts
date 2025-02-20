@@ -1,23 +1,9 @@
 import { TaskProps } from "../core/interfaces/Taskprops";
 
 export function useSplit(Tasks:TaskProps[]){
-  let PendingTasks=[];
-  let InProgressTasks=[];
-  let CompletedTasks=[];
-  for(let i:number=0;i<Tasks.length;i++){
-    switch(Tasks[i].typeTask.type){
-        case "Pending":
-            PendingTasks.push(Tasks[i]);
-        break;
-        case "In Progress":
-            InProgressTasks.push(Tasks[i]);
-            break;
-        case "Completed":
-         CompletedTasks.push(Tasks[i]);    
-        break;
-    }
-
-  }
+  let PendingTasks=Tasks.filter((task)=>task.typeTask.type==='Pending');
+  let InProgressTasks=Tasks.filter((task)=>task.typeTask.type==='In Progress');
+  let CompletedTasks=Tasks.filter((task)=>task.typeTask.type==='Completed');
 
   return {PendingTasks,InProgressTasks,CompletedTasks};
 }
