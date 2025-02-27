@@ -57,7 +57,7 @@ export function TaskTrackerPage() {
 
   return (
     <>
-      <main className="font-display">
+      <main className="font-display p-4">
       <h1 className="text-6xl text-blue-600 text-center font-display">Task Tracker</h1>
       <button
         onClick={() => changestate(1)}
