@@ -1,6 +1,6 @@
 import { User,Lock } from 'lucide-react';
 import { Logo } from '../components/Logo';
-
+import { Link } from 'react-router-dom';
 export function Login() {
     return (
             <main className='font-display p-4 bg-gradient-to-r from-blue-500 to-blue-700 min-h-screen'>
@@ -40,7 +40,8 @@ export function Login() {
             Login
             </button>
             <h2 className='font-semibold text-xl text-blue-600'>Do you have an account?</h2>
-            <button className='text-blue-700 cursor-pointer p-2 px-4 hover:bg-gray-100 hover:underline transition duration-150'>Create an account</button>
+            <button className='text-blue-700 cursor-pointer p-2 px-4 hover:bg-gray-100 hover:underline transition duration-150'>
+                <Link to={"/register"}>Create an account</Link></button>
         </div>
         </main>
     );

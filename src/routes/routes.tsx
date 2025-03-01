@@ -1,17 +1,17 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {Login} from '../pages/Login';
-// import Register from '../pages/register';
 import {TaskTrackerPage} from '../pages/TaskTrackerPages';
+import { Register } from '../pages/register';
 
 const router = createBrowserRouter([
     {
-        path: "/login", // Ruta para el login
+        path: "/login", 
         element: <Login />,
     },
-    // {
-    //     path: "/register", // Ruta para el login
-    //     element: <Register />,
-    // },
+    {
+        path: "/register",
+        element: <Register />,
+    },
     {
         path: "/",
         element: <TaskTrackerPage />,
