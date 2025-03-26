@@ -2,19 +2,37 @@ import { useForm } from 'react-hook-form';
 import { User, Mail, Lock } from 'lucide-react';
 import { Logo } from '../components/Logo';
 import { useState } from 'react';
+import { UserType } from '../core/interfaces/UserProps';
+import { useCreateUser } from '../hooks/useCreateUser';
+import { useNavigate } from 'react-router-dom';
+
+interface RegisterProps extends UserType {
+    confirmPassword: string;
+};
+
 
 export function Register() {
-    type RegisterFormType={id:Number,username:String,email:String,password:String,confirmPassword:String};
-    const [checkpassword,setcheckpassword]=useState('');
-    const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormType>();
-    const onSubmit = (data: RegisterFormType) =>{
-        if(data.password===data.confirmPassword){
-            setcheckpassword('');
-            window.location.href = '/login';
-            console.log(data);
-        }else{
+    const navigate=useNavigate();
+    const { mutate: CreateUser } = useCreateUser();
+    const [checkpassword, setcheckpassword] = useState('');
+    const { register, handleSubmit, formState: { errors } } = useForm<RegisterProps>();
+    const onSubmit = (data: RegisterProps) => {
+        if (data.password !== data.confirmPassword) {
             setcheckpassword('Passwords do not match');
+            return;
         }
+
+        setcheckpassword('');
+            
+            const newUser: UserType = {
+                user: data.user,
+                email: data.email,
+                password: data.password
+            };
+
+            CreateUser(newUser);
+            navigate('/login');
+        
     };
 
     return (
@@ -23,16 +41,16 @@ export function Register() {
                 <Logo />
                 <h1 className="text-4xl font-bold text-blue-500 mb-6 text-center">Register to ToCompleteTask</h1>
                 <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col gap-2 justify-center items-center">
-                    <label htmlFor="username" className="w-full mb-4">
+                    <label htmlFor="user" className="w-full mb-4">
                         <span className="block text-white">Username:</span>
-                        <div className={`flex gap-2 w-full p-2 rounded border border-gray-300 bg-blue-100 items-center focus:border focus:border-blue-600 ${errors.username ? 'border-red-500' : ''}`}>
+                        <div className={`flex gap-2 w-full p-2 rounded border border-gray-300 bg-blue-100 items-center focus:border focus:border-blue-600 ${errors.user ? 'border-red-500' : ''}`}>
                             <User className="text-blue-500 my-auto" />
                             <input
                                 type="text"
-                                id="username"
+                                id="user"
                                 placeholder='Enter your username'
                                 className="w-full p-1 placeholder-blue-400 placeholder-opacity-75 focus:outline-none"
-                                {...register('username', { required: true,
+                                {...register('user', { required: true,
                                    pattern: {
                                     value: /^[a-zA-Z0-9]{8,20}$/,
                                     message: "Username must be between 8 and 20 characters"
@@ -40,7 +58,7 @@ export function Register() {
                                  })}
                             />
                         </div>
-                        {errors.username && <span className="text-red-500 mt-2">{errors.username.message}</span>}
+                        {errors.user && <span className="text-red-500 mt-2">{errors.user.message}</span>}
                     </label>
                     <label htmlFor="email" className="w-full">
                         <span className="block text-white">Email:</span>
