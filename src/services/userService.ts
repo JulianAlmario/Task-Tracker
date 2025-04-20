@@ -1,34 +1,34 @@
 
 import { axiosApi } from "../api/axios";
 import { UserType } from "../core/interfaces/UserProps";
+import { userProps } from "../core/interfaces/UserProps";
 
 export const addUser = async (user: UserType) => {
-
   try {
-    const response = await axiosApi.post("/users", user, {
+    const response = await axiosApi.post(`/register`, user, {
       headers: { "Content-Type": "application/json" },
     });
-  
+
     return response.data;
   } catch (error:any) {
-    if (error.response) {
-      // El servidor respondió con un código de estado fuera del rango 2xx
-      console.error("Error response:", error.response.data);
-      console.error("Error status:", error.response.status);
-      console.error("Error headers:", error.response.headers);
-    } else if (error.request) {
-      // La solicitud fue hecha pero no se recibió respuesta
-      console.error("Error request:", error.request);
-    } else {
-      // Algo pasó al configurar la solicitud que desencadenó un error
-      console.error("Error message:", error.message);
+    if (error.response && error.response.data||error.request) {
+      throw new Error(error.response.data.message || "Failed to create user");
     }
-    throw new Error("Error in creating the user. Error: " + error.message);
+    throw new Error( error.message);
   }
   };
 
-export const getUser = async ():Promise<UserType> => {
-  const response= await axiosApi.get(`/users`);
-  return response.data;
+
+
+export const getUser = async (user:userProps) => {
+  console.log(user);
+  try {
+    const response = await axiosApi.post(`/login`, user , {
+      headers: { "Content-Type": "application/json" },
+    });
+    return response.data;
+  } catch (error: any) {
+    throw new Error("Error in retrieving the user. Error: " + error.message);
+  }
 };
 

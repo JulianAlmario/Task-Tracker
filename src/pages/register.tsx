@@ -4,7 +4,8 @@ import { Logo } from '../components/Logo';
 import { useState } from 'react';
 import { UserType } from '../core/interfaces/UserProps';
 import { useCreateUser } from '../hooks/useCreateUser';
-import { useNavigate } from 'react-router-dom';
+import { Loading } from '../components/Loading';
+import { Link } from 'react-router-dom';
 
 interface RegisterProps extends UserType {
     confirmPassword: string;
@@ -12,26 +13,31 @@ interface RegisterProps extends UserType {
 
 
 export function Register() {
-    const navigate=useNavigate();
-    const { mutate: CreateUser } = useCreateUser();
-    const [checkpassword, setcheckpassword] = useState('');
+
+    const [errorRegister, setErrorRegister] = useState('');
+    const { mutate: CreateUser,error,isPending} = useCreateUser(setErrorRegister);
     const { register, handleSubmit, formState: { errors } } = useForm<RegisterProps>();
     const onSubmit = (data: RegisterProps) => {
         if (data.password !== data.confirmPassword) {
-            setcheckpassword('Passwords do not match');
+            setErrorRegister('Passwords do not match');
             return;
         }
 
-        setcheckpassword('');
+        setErrorRegister('');
             
             const newUser: UserType = {
-                user: data.user,
+                username: data.username,
                 email: data.email,
                 password: data.password
             };
 
             CreateUser(newUser);
-            navigate('/login');
+            if (error) {
+                setErrorRegister("It was not possible to create the user, please try again later");
+                return;
+            }
+
+          
         
     };
 
@@ -41,16 +47,16 @@ export function Register() {
                 <Logo />
                 <h1 className="text-4xl font-bold text-blue-500 mb-6 text-center">Register to ToCompleteTask</h1>
                 <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col gap-2 justify-center items-center">
-                    <label htmlFor="user" className="w-full mb-4">
+                    <label htmlFor="username" className="w-full mb-4">
                         <span className="block text-white">Username:</span>
-                        <div className={`flex gap-2 w-full p-2 rounded border border-gray-300 bg-blue-100 items-center focus:border focus:border-blue-600 ${errors.user ? 'border-red-500' : ''}`}>
+                        <div className={`flex gap-2 w-full p-2 rounded border border-gray-300 bg-blue-100 items-center focus:border focus:border-blue-600 ${errors.username ? 'border-red-500' : ''}`}>
                             <User className="text-blue-500 my-auto" />
                             <input
                                 type="text"
-                                id="user"
-                                placeholder='Enter your username'
+                                id="username"
+                                placeholder='Enter a username'
                                 className="w-full p-1 placeholder-blue-400 placeholder-opacity-75 focus:outline-none"
-                                {...register('user', { required: true,
+                                {...register('username', { required: true,
                                    pattern: {
                                     value: /^[a-zA-Z0-9]{8,20}$/,
                                     message: "Username must be between 8 and 20 characters"
@@ -58,7 +64,7 @@ export function Register() {
                                  })}
                             />
                         </div>
-                        {errors.user && <span className="text-red-500 mt-2">{errors.user.message}</span>}
+                        {errors.username && <span className="text-red-500 mt-2">{errors.username.message}</span>}
                     </label>
                     <label htmlFor="email" className="w-full">
                         <span className="block text-white">Email:</span>
@@ -67,7 +73,7 @@ export function Register() {
                             <input
                                 type="email"
                                 id="email"
-                                placeholder='Enter your email'
+                                placeholder='Enter a email'
                                 className="w-full p-1 placeholder-blue-400 placeholder-opacity-75 focus:outline-none"
                                 {...register('email', { required: true,
                                     pattern: {
@@ -88,7 +94,7 @@ export function Register() {
                             <input
                                 type="password"
                                 id="password"
-                                placeholder="Enter your password"
+                                placeholder="Enter a password"
                                 className="w-full p-1 placeholder-blue-400 placeholder-opacity-75 focus:outline-none"
                                 {...register('password', { required: true,
                                     pattern: {
@@ -115,13 +121,13 @@ export function Register() {
                         </div>
                         {errors.confirmPassword && <span className="text-red-500">{errors.confirmPassword.message}</span>}
                     </label>
-                    <p className='text-red-600'>{checkpassword}</p>
-                    <button type="submit" className="bg-blue-500 text-white font-bold py-2 px-8 rounded hover:bg-blue-700 cursor-pointer transition duration-150">
-                        Register
+                    <span className={errorRegister!==""?"text-red-500 bg-red-200 border border-red-500 rounded-md p-2":""}>{errorRegister}</span>
+                    <button type="submit" className="bg-blue-500 text-white w-1/4 font-bold py-2 px-8 rounded hover:bg-blue-700 cursor-pointer transition duration-150">
+                    {isPending?<Loading />:"Register"}
                     </button>
                 </form>
                 <h2 className='font-semibold text-xl text-blue-600'>Already have an account?</h2>
-                <button className='text-blue-700 cursor-pointer p-2 px-4 hover:bg-gray-100 hover:underline transition duration-150'>Login</button>
+                <button className='text-blue-700 cursor-pointer p-2 px-4 hover:bg-gray-100 hover:underline transition duration-150'><Link to="/"></Link></button>
             </div>
         </main>
     );

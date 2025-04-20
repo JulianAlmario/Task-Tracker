@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { getUser } from "../services/userService";
+import { userProps } from "../core/interfaces/UserProps";
 
-export const useGetUser = () => {
+export const useGetUser = (user:userProps,enable:boolean) => {
     return useQuery({
-        queryKey: ["Users"],
-        queryFn: getUser,
-        // select:(data)=>data.filter((item:ActivityType)=>item["BusinessName"]===NombreNegocio)
+        queryKey: ["users",user],
+        queryFn: () => getUser(user),
+    enabled: enable,
     });
-    }
+};

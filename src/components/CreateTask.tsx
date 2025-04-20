@@ -12,7 +12,6 @@ const CreateTask: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // Handle task creation logic here
         console.log({ title, description, limitDate });
     };
 

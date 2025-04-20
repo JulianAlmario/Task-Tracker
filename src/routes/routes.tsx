@@ -5,6 +5,10 @@ import { Register } from '../pages/register';
 
 const router = createBrowserRouter([
     {
+        path: "/",
+        element: <Login />,
+    },
+    {
         path: "/login", 
         element: <Login />,
     },
@@ -13,7 +17,7 @@ const router = createBrowserRouter([
         element: <Register />,
     },
     {
-        path: "/",
+        path: "/task-tracker",
         element: <TaskTrackerPage />,
     }
 ]);
