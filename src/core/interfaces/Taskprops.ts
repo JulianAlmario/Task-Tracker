@@ -1,11 +1,9 @@
-export interface TypeTask{
-  type:"Pending"|"In Progress"|"Completed";    
-}
 
 export interface TaskProps{
-    id:number;
+    _id?:number;
     title:string;
+    userId:string;
     description?:string;
     limitDate:Date;
-    typeTask:TypeTask;
+    type:"Pending"|"In Progress"|"Completed";
 }

@@ -3,7 +3,7 @@ import { User, Mail, Lock } from 'lucide-react';
 import { Logo } from '../components/Logo';
 import { useState } from 'react';
 import { UserType } from '../core/interfaces/UserProps';
-import { useCreateUser } from '../hooks/useCreateUser';
+import { useCreateUser } from '../hooks/userHooks/useCreateUser';
 import { Loading } from '../components/Loading';
 import { Link } from 'react-router-dom';
 

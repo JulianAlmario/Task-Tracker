@@ -5,7 +5,7 @@ import { userProps } from "../core/interfaces/UserProps";
 
 export const addUser = async (user: UserType) => {
   try {
-    const response = await axiosApi.post(`/register`, user, {
+    const response = await axiosApi.post(`/users/register`, user, {
       headers: { "Content-Type": "application/json" },
     });
 
@@ -23,7 +23,7 @@ export const addUser = async (user: UserType) => {
 export const getUser = async (user:userProps) => {
   console.log(user);
   try {
-    const response = await axiosApi.post(`/login`, user , {
+    const response = await axiosApi.post(`/users/login`, user , {
       headers: { "Content-Type": "application/json" },
     });
     return response.data;

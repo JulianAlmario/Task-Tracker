@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import { useWindowStore } from "../states/WindowStates";
+import { useWindowStore } from "../../states/WindowStates";
 
 
 export function TaskDetail(){

@@ -3,7 +3,7 @@ import { Logo } from '../components/Logo';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUserStore } from '../states/userStates';
 import { useState } from 'react';
-import { useGetUser } from '../hooks/useGetUser';
+import { useGetUser } from '../hooks/userHooks/useGetUser';
 
 
 

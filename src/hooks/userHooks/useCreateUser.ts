@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { UserType } from "../core/interfaces/UserProps";
-import { addUser } from "../services/userService";
+import { UserType } from "../../core/interfaces/UserProps";
+import { addUser } from "../../services/userService";
 import { useNavigate } from "react-router-dom";
 
 

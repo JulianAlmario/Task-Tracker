@@ -3,11 +3,11 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Info,Trash2,Ellipsis,ChevronLeft,ChevronRight } from 'lucide-react';
-import { TaskProps } from '../core/interfaces/Taskprops';
+import { TaskProps } from '../../core/interfaces/Taskprops';
 import { TaskDetail } from './TaskDetail';
-import { useWindowStore } from '../states/WindowStates';
-import { WindowDelete } from './WindowDelete';
-import { WindowConfirm } from './windowConfirm';
+import { useWindowStore } from '../../states/WindowStates';
+import { WindowDelete } from '../WindowDelete';
+import { WindowConfirm } from '../windowConfirm';
 
 export function ButtonMenu(Task:TaskProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -52,21 +52,21 @@ export function ButtonMenu(Task:TaskProps) {
               <span>Details</span> <Info className='size-5 my-auto'/>
             </div>
         </MenuItem>
-        {Task.typeTask.type==='In Progress'&&
+        {Task.type==='In Progress'&&
           <MenuItem onClick={handleClose}>
             <div className='flex justify-between gap-2 w-full'>
               <span>Not Doing</span> <ChevronLeft/>
             </div>
           </MenuItem>
         }
-        {(Task.typeTask.type === 'Pending' || Task.typeTask.type === 'In Progress') && (
+        {(Task.type === 'Pending' || Task.type === 'In Progress') && (
         <MenuItem onClick={()=>{
-          if(Task.typeTask.type==='In Progress'){
+          if(Task.type==='In Progress'){
             SetOpenConfirmWindow(true);
           }
           handleClose();}}>
         <div className='flex justify-between gap-2 w-full'>
-              <span>{Task.typeTask.type==='In Progress'?"Completed":"Doing"}</span> <ChevronRight/>
+              <span>{Task.type==='In Progress'?"Completed":"Doing"}</span> <ChevronRight/>
             </div>
           </MenuItem>
             )}
