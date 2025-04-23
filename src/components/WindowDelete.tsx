@@ -1,5 +1,7 @@
 import {WindowProps} from "../core/interfaces/WindowProps";
-export function WindowDelete({open,close}:WindowProps){
+import { useDeleteTask } from "../hooks/taskHooks/useDeleteTask";
+export function WindowDelete({open,close,taskId}:WindowProps){
+  const {mutate:deleteTask}=useDeleteTask();
     return(
         <div
         className={`fixed inset-0 flex flex-col justify-center items-center z-10 mx-auto ${open ? "visible bg-black/20" : "invisible"
@@ -11,7 +13,7 @@ export function WindowDelete({open,close}:WindowProps){
           <button onClick={close} 
           className="p-2 px-4 bg-gray-900 text-white rounded-sm hover:bg-gray-700 transition cursor-pointer duration-150">
             No</button>
-          <button onClick={close}
+          <button onClick={()=>{deleteTask(taskId);close();}}
           className="p-2 px-4 bg-red-600 text-white  rounded-sm hover:bg-red-700 cursor-pointer transition duration-150">
             Yes</button>
           </section>

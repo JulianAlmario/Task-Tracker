@@ -1,56 +1,17 @@
 import { useEffect, useState } from "react";
 import CreateTask from "../components/CreateTask";
 import { TypeTaskBoard } from "../components/TypeTaskBoard";
-import { TaskProps } from "../core/interfaces/Taskprops";
+import { getTaskListProps } from "../core/interfaces/Taskprops";
 import { useGetTasks } from "../hooks/taskHooks/useGetTasks";
 import { useSplit } from "../hooks/useSplit";
 import { useWindowStore } from "../states/WindowStates";
 
-type TaskListProps={ type: string; tasklist: TaskProps[] }[];
+type TaskListProps={ type: string; tasklist: getTaskListProps[] }[];
 
 export function TaskTrackerPage() {
   const { changestate } = useWindowStore();
   const { data: tasks=[] } = useGetTasks();
-  // const task: TaskProps[] = [
-  //   {
-  //     id: 1,
-  //     title: "Do homework",
-  //     description:
-  //       "Lorem ipsum dolor sit amet consectetur adipiscing elit quisque, dis penatibus pharetra rhoncus a aliquet senectus, venenatis id blandit commodo sodales interdum felis. Est in mi aenean congue ullamcorper cubilia, natoque sociosqu sodales sagittis lacinia condimentum curabitur, montes dis pellentesque a himenaeos. Maecenas aliquet ullamcorper nisl dictum at malesuada fusce scelerisque ultricies, duis facilisi tristique non massa porttitor mollis enim accumsan, nascetur integer curae pulvinar inceptos commodo facilisis lacinia.",
-  //     limitDate: new Date(2025, 9, 16),
-  //     typeTask: { type: "Completed" },
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "Do many many homework",
-  //     limitDate: new Date(2025, 10, 20),
-  //     typeTask: { type: "In Progress" },
-  //   },
-  //   {
-  //     id: 3,
-  //     title: "Task3",
-  //     limitDate: new Date(2025, 11, 25),
-  //     typeTask: { type: "Pending" },
-  //   },
-  //   {
-  //     id: 4,
-  //     title: "Task4",
-  //     limitDate: new Date(2025, 12, 30),
-  //     typeTask: { type: "Completed" },
-  //   },
-  //   {
-  //     id: 5,
-  //     title: "Do many homework12",
-  //     limitDate: new Date(2026, 1, 15),
-  //     typeTask: { type: "In Progress" },
-  //   },
-  //   {
-  //     id: 6,
-  //     title: "Task6",
-  //     limitDate: new Date(2026, 2, 20),
-  //     typeTask: { type: "Pending" },
-  //   },
-  // ];
+  
   const [TaskList, setTaskList] = useState<TaskListProps>([]);
   useEffect(() => {
     console.log("tasks:",tasks);

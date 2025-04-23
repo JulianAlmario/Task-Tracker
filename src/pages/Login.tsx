@@ -28,14 +28,8 @@ export function Login() {
       try {
         const { data } = await refetch(); 
         console.log(data);
-        console.log(1);
-        // if (data?.password === password && data?._id !== undefined) {
-        //     setError('');
             changeUser(data);
             nav('/task-tracker');
-        // } else {
-        //     setError('Username or password is incorrect');
-        // }
     } catch (error) {
         setError(`Error:${error}`);
     }

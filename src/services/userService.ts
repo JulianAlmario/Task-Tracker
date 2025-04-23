@@ -21,7 +21,6 @@ export const addUser = async (user: UserType) => {
 
 
 export const getUser = async (user:userProps) => {
-  console.log(user);
   try {
     const response = await axiosApi.post(`/users/login`, user , {
       headers: { "Content-Type": "application/json" },

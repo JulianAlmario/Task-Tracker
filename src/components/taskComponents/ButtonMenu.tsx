@@ -3,15 +3,17 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Info,Trash2,Ellipsis,ChevronLeft,ChevronRight } from 'lucide-react';
-import { TaskProps } from '../../core/interfaces/Taskprops';
+import { getTaskListProps } from '../../core/interfaces/Taskprops';
 import { TaskDetail } from './TaskDetail';
 import { useWindowStore } from '../../states/WindowStates';
 import { WindowDelete } from '../WindowDelete';
 import { WindowConfirm } from '../windowConfirm';
 
-export function ButtonMenu(Task:TaskProps) {
+
+export function ButtonMenu(Task:getTaskListProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -72,12 +74,12 @@ export function ButtonMenu(Task:TaskProps) {
             )}
         <MenuItem onClick={()=>{handleClose();
           SetOpenDeleteWindow(true);
-        }}><div className='text-red-600 flex justify-between gap-2 w-full'><span>Delete</span> <Trash2 className='size-5.5 my-auto'/></div></MenuItem>
+        }}><button><div className='text-red-600 flex justify-between gap-2 w-full'><span>Delete</span> <Trash2 className='size-5.5 my-auto'/></div></button></MenuItem>
       </Menu>
     </div>
     <TaskDetail/>
-    <WindowDelete open={OpenDeleteWindow} close={()=>SetOpenDeleteWindow(false)} />
-    <WindowConfirm open={OpenConfirmWindow} close={()=>SetOpenConfirmWindow(false)}/>
+    <WindowDelete open={OpenDeleteWindow} close={()=>SetOpenDeleteWindow(false)} taskId={Task._id} />
+    <WindowConfirm open={OpenConfirmWindow} close={()=>SetOpenConfirmWindow(false)} taskId={Task._id}/>
     </>
   );
 }

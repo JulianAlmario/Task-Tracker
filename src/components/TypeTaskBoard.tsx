@@ -1,9 +1,9 @@
-import { TaskProps } from "../core/interfaces/Taskprops";
+import { getTaskListProps } from "../core/interfaces/Taskprops";
 import { Task } from "./Task";
 
 type TypeTaskBoardProps={
     title:string;
-    TaskArray:TaskProps[];
+    TaskArray:getTaskListProps[];
 
 }
 

@@ -1,9 +1,9 @@
-import { TaskProps } from "../core/interfaces/Taskprops";
+import { getTaskListProps } from "../core/interfaces/Taskprops";
 import { ButtonMenu } from "./taskComponents/ButtonMenu";
 import { TaskIcon } from "./taskComponents/TaskIcon";
 
 
-export function Task(Task: TaskProps) {
+export function Task(Task: getTaskListProps) {
     return (
       <div className="flex gap-4 bg-gray-100 p-4 rounded-lg shadow-md justify-start items-center">
        <TaskIcon TypeTask={Task.type}/>
