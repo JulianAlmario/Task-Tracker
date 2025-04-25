@@ -1,5 +1,5 @@
 import { axiosApi } from "../api/axios";
-import { TaskProps } from "../core/interfaces/Taskprops";
+import { TaskProps, updateTypeTaskProps } from "../core/interfaces/Taskprops";
 
 
 export const addTask = async (task: TaskProps) => {
@@ -41,5 +41,17 @@ export const deleteTask = async (taskId: string) => {
     return response.data;
   } catch (error: any) {
     throw new Error("Error in deleting the task. Error: " + error.message);
+  }
+
+}
+
+export const updateTypeTask = async (updateType:updateTypeTaskProps) => {
+  try {
+    const response = await axiosApi.patch(`/tasks/updateTypeTask`, updateType, {
+      headers: { "Content-Type": "application/json" },
+    });
+    return response.data;
+  } catch (error: any) {
+    throw new Error("Error in updating the task. Error: " + error.message);
   }
 }

@@ -15,3 +15,8 @@ export interface getTaskListProps{
     limitDate:Date;
     type:"Pending"|"In Progress"|"Completed";
 }
+
+export interface updateTypeTaskProps{
+    taskId:string;
+    type:"Pending"|"In Progress"|"Completed";
+}

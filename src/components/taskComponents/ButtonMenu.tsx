@@ -8,6 +8,8 @@ import { TaskDetail } from './TaskDetail';
 import { useWindowStore } from '../../states/WindowStates';
 import { WindowDelete } from '../WindowDelete';
 import { WindowConfirm } from '../windowConfirm';
+import { useUpdateTypeTask } from '../../hooks/taskHooks/useUpdateTypeTask';
+
 
 
 export function ButtonMenu(Task:getTaskListProps) {
@@ -24,6 +26,8 @@ export function ButtonMenu(Task:getTaskListProps) {
   const {changestate,AsignDetail}=useWindowStore();
   const [OpenDeleteWindow,SetOpenDeleteWindow]=React.useState(false);
   const [OpenConfirmWindow,SetOpenConfirmWindow]=React.useState(false);
+  const {mutate:updateTypeTask}=useUpdateTypeTask();
+
   return (
     <>
     <div>
@@ -55,7 +59,7 @@ export function ButtonMenu(Task:getTaskListProps) {
             </div>
         </MenuItem>
         {Task.type==='In Progress'&&
-          <MenuItem onClick={handleClose}>
+          <MenuItem onClick={()=>{updateTypeTask({ taskId: Task._id, type: 'Pending' });handleClose();}}>
             <div className='flex justify-between gap-2 w-full'>
               <span>Not Doing</span> <ChevronLeft/>
             </div>
@@ -65,6 +69,8 @@ export function ButtonMenu(Task:getTaskListProps) {
         <MenuItem onClick={()=>{
           if(Task.type==='In Progress'){
             SetOpenConfirmWindow(true);
+          }else{
+             updateTypeTask({ taskId: Task._id, type: 'In Progress' });
           }
           handleClose();}}>
         <div className='flex justify-between gap-2 w-full'>
