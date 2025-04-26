@@ -14,7 +14,6 @@ export function TaskTrackerPage() {
   
   const [TaskList, setTaskList] = useState<TaskListProps>([]);
   useEffect(() => {
-    console.log("tasks:",tasks);
    if(tasks!==undefined && tasks.length>0){
     const { PendingTasks, InProgressTasks, CompletedTasks } = useSplit(tasks);
     

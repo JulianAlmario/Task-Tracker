@@ -3,7 +3,6 @@ import { TaskProps, updateTypeTaskProps } from "../core/interfaces/Taskprops";
 
 
 export const addTask = async (task: TaskProps) => {
-    console.log(task);
   try {
     const response = await axiosApi.post(`/tasks/addTask`, task, {
       headers: { "Content-Type": "application/json" },
@@ -26,7 +25,6 @@ export const getTasks = async (userId:string) => {
     const response = await axiosApi.get(`/tasks/getTasks?userId=${userId}`, {
       headers: { "Content-Type": "application/json" },
     });
-    console.log(response.data);
     return response.data;
   } catch (error: any) {
     throw new Error("Error in retrieving the tasks. Error: " + error.message);

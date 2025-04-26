@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
 import { useWindowStore } from '../states/WindowStates';
-import { WindowDialogue } from './WindowDialogue';
+import { WindowDialogue } from './windows/WindowDialogue';
 
 import {X} from "lucide-react"
 import { useForm } from 'react-hook-form';
 import { TaskProps } from '../core/interfaces/Taskprops';
 import { useUserStore } from '../states/userStates';
 import { useCreateTask } from '../hooks/taskHooks/useCreateTask';
-import {Loading} from './Loading';
 
 
 const CreateTask: React.FC = () => {
     const { changestate } = useWindowStore();
     const {userId} = useUserStore();
     const [error, setError] = useState<string>("");
-    const {mutate:addTask,isPending}=useCreateTask(setError);
+    const {mutate:addTask}=useCreateTask(setError);
     const { register, handleSubmit, formState: { errors }, reset } = useForm<TaskProps>();
 
     const onSubmit = (values: TaskProps) => {
@@ -40,7 +39,7 @@ const CreateTask: React.FC = () => {
     return (
         <WindowDialogue>
             <div className="bg-white rounded-xl shadow p-6 px-10 transition-all relative overflow-y-auto max-h-[80vh]">
-                <button onClick={() => changestate(1)} className="absolute right-3 top-2 cursor-pointer">
+                <button onClick={() => changestate(1)} className="absolute right-3 top-2 cursor-pointer p-1 hover:bg-red-100 rounded-4xl transition duration-150">
                     <X className="text-red-600" />
                 </button>
                 <h2 className="text-2xl font-bold mb-4 text-center text-blue-700">Create Task</h2>

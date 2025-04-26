@@ -27,7 +27,6 @@ export function Login() {
        
       try {
         const { data } = await refetch(); 
-        console.log(data);
             changeUser(data);
             nav('/task-tracker');
     } catch (error) {

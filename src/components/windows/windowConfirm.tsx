@@ -1,5 +1,5 @@
-import {WindowProps} from "../core/interfaces/WindowProps";
-import { useUpdateTypeTask } from "../hooks/taskHooks/useUpdateTypeTask";
+import {WindowProps} from "../../core/interfaces/WindowProps";
+import { useUpdateTypeTask } from "../../hooks/taskHooks/useUpdateTypeTask";
 
 export function WindowConfirm({open,close,taskId}:WindowProps){
   const {mutate:UpdateTypeTask}=useUpdateTypeTask();

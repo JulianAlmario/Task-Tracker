@@ -1,5 +1,5 @@
-import {WindowProps} from "../core/interfaces/WindowProps";
-import { useDeleteTask } from "../hooks/taskHooks/useDeleteTask";
+import {WindowProps} from "../../core/interfaces/WindowProps";
+import { useDeleteTask } from "../../hooks/taskHooks/useDeleteTask";
 export function WindowDelete({open,close,taskId}:WindowProps){
   const {mutate:deleteTask}=useDeleteTask();
     return(

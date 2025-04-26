@@ -6,8 +6,8 @@ import { Info,Trash2,Ellipsis,ChevronLeft,ChevronRight } from 'lucide-react';
 import { getTaskListProps } from '../../core/interfaces/Taskprops';
 import { TaskDetail } from './TaskDetail';
 import { useWindowStore } from '../../states/WindowStates';
-import { WindowDelete } from '../WindowDelete';
-import { WindowConfirm } from '../windowConfirm';
+import { WindowDelete } from '../windows/WindowDelete';
+import { WindowConfirm } from '../windows/windowConfirm';
 import { useUpdateTypeTask } from '../../hooks/taskHooks/useUpdateTypeTask';
 
 
