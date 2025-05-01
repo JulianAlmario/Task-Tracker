@@ -9,7 +9,7 @@ type userStoreProps={
 }
 export const useUserStore=create<userStoreProps>((set)=>({
  userId: "68042c2025807c1920a843ea",
- userName: "",
+ userName: "jdalmario",
  userEmail: "",
  changeUser: (user) =>
     set(() => ({ userId: user._id, userName: user.username, userEmail: user.email  })),

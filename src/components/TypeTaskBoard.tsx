@@ -1,5 +1,5 @@
 import { getTaskListProps } from "../core/interfaces/Taskprops";
-import { Task } from "./Task";
+import { Task } from "./taskComponents/Task";
 
 type TypeTaskBoardProps={
     title:string;

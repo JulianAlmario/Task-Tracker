@@ -42,7 +42,9 @@ export function Login() {
     return (
             <main className='font-display p-4 bg-gradient-to-r from-blue-500 to-blue-700 min-h-screen'>
         <div className="flex flex-col gap-4 items-center justify-center bg-white rounded-2xl md:w-4/6 lg:w-3/6 h-auto mx-auto p-8 shadow-lg">
-            <Logo/>
+           <section className='size-1/3'>
+           <Logo/>
+           </section>
             <h1 className="text-4xl font-bold text-blue-500 mb-6 text-center">Welcome to ToCompleteTask</h1>
             <label htmlFor="Username" className="w-full mb-4">
             <span className="block text-white mb-2">Username:</span>

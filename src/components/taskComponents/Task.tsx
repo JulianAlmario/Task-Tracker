@@ -1,6 +1,6 @@
-import { getTaskListProps } from "../core/interfaces/Taskprops";
-import { ButtonMenu } from "./taskComponents/ButtonMenu";
-import { TaskIcon } from "./taskComponents/TaskIcon";
+import { getTaskListProps } from "../../core/interfaces/Taskprops"; 
+import { ButtonMenu } from "./ButtonMenu";
+import { TaskIcon } from "./TaskIcon";
 
 
 export function Task(Task: getTaskListProps) {
