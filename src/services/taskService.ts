@@ -3,6 +3,7 @@ import { TaskProps, updateTypeTaskProps } from "../core/interfaces/Taskprops";
 
 
 export const addTask = async (task: TaskProps) => {
+  console.log("task", task);
   try {
     const response = await axiosApi.post(`/tasks/addTask`, task, {
       headers: { "Content-Type": "application/json" },

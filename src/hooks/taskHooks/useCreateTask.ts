@@ -11,6 +11,7 @@ export const useCreateTask = (setError:(text:string)=>void) => {
     mutationFn: (task: TaskProps) => addTask(task),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      setError("");
     },
     onError: (error) => {
        console.error("Error in creating the task", error);

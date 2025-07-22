@@ -23,7 +23,6 @@ export function Register() {
             return;
         }
 
-        setErrorRegister('');
             
             const newUser: UserType = {
                 username: data.username,
@@ -31,7 +30,10 @@ export function Register() {
                 password: data.password
             };
 
+             
+
             CreateUser(newUser);
+            setErrorRegister('');
             if (error) {
                 setErrorRegister("It was not possible to create the user, please try again later");
                 return;
@@ -44,8 +46,8 @@ export function Register() {
     return (
         <main className='font-display p-4 bg-gradient-to-r from-blue-500 to-blue-700 min-h-screen'>
             <div className="flex flex-col gap-4 items-center justify-center bg-white rounded-2xl md:w-4/6 lg:w-3/6 h-auto mx-auto p-8 shadow-lg">
-                <Logo />
-                <h1 className="text-4xl font-bold text-blue-500 mb-6 text-center">Register to ToCompleteTask</h1>
+                <div className='size-1/4 bg-none'><Logo /></div>
+                <h1 className="text-5xl font-bold text-blue-500 mb-6 text-center">Register</h1>
                 <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col gap-2 justify-center items-center">
                     <label htmlFor="username" className="w-full mb-4">
                         <span className="block text-white">Username:</span>
@@ -122,12 +124,12 @@ export function Register() {
                         {errors.confirmPassword && <span className="text-red-500">{errors.confirmPassword.message}</span>}
                     </label>
                     <span className={errorRegister!==""?"text-red-500 bg-red-200 border border-red-500 rounded-md p-2":""}>{errorRegister}</span>
-                    <button type="submit" className="bg-blue-500 text-white w-1/4 font-bold py-2 px-8 rounded hover:bg-blue-700 cursor-pointer transition duration-150">
+                    <button type="submit" className="bg-blue-500 text-white w-2/4 md:w-1/4 font-bold py-2 px-8 rounded hover:bg-blue-700 cursor-pointer transition duration-150">
                     {isPending?<Loading />:"Register"}
                     </button>
                 </form>
                 <h2 className='font-semibold text-xl text-blue-600'>Already have an account?</h2>
-                <button className='text-blue-700 cursor-pointer p-2 px-4 hover:bg-gray-100 hover:underline transition duration-150'><Link to="/"></Link></button>
+                <button className='text-blue-700 cursor-pointer p-2 px-4 hover:bg-gray-100 hover:underline transition duration-150'><Link to="/login">Return to login</Link></button>
             </div>
         </main>
     );

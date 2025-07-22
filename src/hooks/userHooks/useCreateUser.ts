@@ -9,14 +9,13 @@ export const useCreateUser = (setError:(text:string)=>void) => {
   const queryClient = useQueryClient();
   const navigate=useNavigate();
   return useMutation({
-    mutationFn: (user: UserType) => addUser(user),
+    mutationFn: async (user: UserType) => await addUser(user),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["Users"] });
       navigate('/login');
     },
-    onError: (error) => {
-       console.error("Error in creating the user", error);
-      setError("It was not possible to create the user, please try again later");
+    onError: (error: unknown) => {
+      setError(`${error}`);
     }
   });
 };

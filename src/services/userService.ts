@@ -8,7 +8,6 @@ export const addUser = async (user: UserType) => {
     const response = await axiosApi.post(`/users/register`, user, {
       headers: { "Content-Type": "application/json" },
     });
-
     return response.data;
   } catch (error:any) {
     if (error.response && error.response.data||error.request) {

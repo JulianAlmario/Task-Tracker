@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useWindowStore } from '../states/WindowStates';
 import { WindowDialogue } from './windows/WindowDialogue';
-
-import {X} from "lucide-react"
+import { Button,Heading, Dialog, DialogTrigger, Modal } from 'react-aria-components';
+import { X} from "lucide-react"
 import { useForm } from 'react-hook-form';
 import { TaskProps } from '../core/interfaces/Taskprops';
 import { useUserStore } from '../states/userStates';
@@ -13,6 +13,7 @@ const CreateTask: React.FC = () => {
     const { changestate } = useWindowStore();
     const {userId} = useUserStore();
     const [error, setError] = useState<string>("");
+    const [isOpen, setIsOpen] = useState(false);
     const {mutate:addTask}=useCreateTask(setError);
     const { register, handleSubmit, formState: { errors }, reset } = useForm<TaskProps>();
 
@@ -20,29 +21,42 @@ const CreateTask: React.FC = () => {
         if(errors.title || errors.description || errors.limitDate) {
             return;
         }
-        try{
-            const newTask: TaskProps = {
-                title: values.title,
-                userId: userId,
-                description: values.description,
-                limitDate: new Date(new Date(values.limitDate).setMinutes(new Date(values.limitDate).getMinutes() + new Date().getTimezoneOffset())),
-                type: "Pending",
-            };
-            addTask(newTask);
-            changestate(1);
-            reset();
-        }catch(e){
-            setError("It was not possible to create the task, please try again later");
-        }
+
+        
+     const newTask: TaskProps = {
+            title: values.title,
+            userId: userId,
+            description: values.description,
+            limitDate: new Date(new Date(values.limitDate).setMinutes(new Date(values.limitDate).getMinutes() + new Date().getTimezoneOffset())),
+            type: "Pending",
+        };
+         addTask(newTask, {
+            onSuccess: () => {
+                setError("");
+                reset();
+                setIsOpen(false); // Cierra el modal solo si fue exitoso
+            },
+            onError: () => {
+                setError("It was not possible to create the task, please try again later");
+                // No cerramos el modal si hay error
+            }
+        });
     };
 
     return (
-        <WindowDialogue>
-            <div className="bg-white rounded-xl shadow p-6 px-10 transition-all relative overflow-y-auto max-h-[80vh]">
-                <button onClick={() => changestate(1)} className="absolute right-3 top-2 cursor-pointer p-1 hover:bg-red-100 rounded-4xl transition duration-150">
+            <DialogTrigger isOpen={isOpen} onOpenChange={setIsOpen} >
+           
+             <Button className="mt-5 bg-blue-700 py-2 px-4 text-white rounded-sm
+        cursor-pointer hover:bg-blue-800 transition duration-150">
+            Add Task</Button>
+             <Modal isKeyboardDismissDisabled>
+                <Dialog>
+                    <WindowDialogue>
+            <div className="max-md:w-10/12 bg-white rounded-xl shadow p-6 px-10 transition-all relative overflow-y-auto max-h-[80vh]">
+                <Button slot="close" onClick={() => {changestate(1);setError("")}} className="absolute right-3 top-2 cursor-pointer p-1 hover:bg-red-100 rounded-4xl transition duration-150">
                     <X className="text-red-600" />
-                </button>
-                <h2 className="text-2xl font-bold mb-4 text-center text-blue-700">Create Task</h2>
+                </Button>
+                <Heading slot="title" className="text-2xl font-bold mb-4 text-center text-blue-700">Create Task</Heading>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">
@@ -81,18 +95,24 @@ const CreateTask: React.FC = () => {
                         />
                         {errors.limitDate && <p className="text-red-500 text-xs italic">{errors.limitDate.message}</p>}
                     </div>
-                    <span className={error!==""?"my-5 text-red-500 bg-red-200 border border-red-500 rounded-md p-2":""}>{error}</span>
+                    <div className={error!==""?"my-5 text-red-500 bg-red-200 border border-red-500 rounded-md p-2":""}>
+                        <span >{error}</span>
+                    </div>
+                    
                     <div className="flex items-center justify-between">
                         <button
                             type="submit"
-                            className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 cursor-pointer mx-auto rounded-sm transition duration-150"
+                            className="bg-blue-700 mt-5 hover:bg-blue-800 text-white font-bold py-2 px-4 cursor-pointer mx-auto rounded-sm transition duration-150"
                         >
                             Create Task
                         </button>
                     </div>
                 </form>
             </div>
-        </WindowDialogue>
+            </WindowDialogue>
+            </Dialog>
+            </Modal>
+        </DialogTrigger>
     );
 };
 

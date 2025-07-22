@@ -21,6 +21,7 @@ export function Login() {
     const {isLoading,refetch}=useGetUser({username:username,password},fetch);
 
      async function Submit(){
+    
      if(username.length >= 8 && username.length <= 20 
         && /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[a-zA-Z\d\W_]{8,}/.test(password)){
         setFetch(true);
@@ -30,7 +31,7 @@ export function Login() {
             changeUser(data);
             nav('/task-tracker');
     } catch (error) {
-        setError(`Error:${error}`);
+        setError('Was not possible to login, please try again later');
     }
     setFetch(false);
      }else{
