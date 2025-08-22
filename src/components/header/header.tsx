@@ -14,7 +14,7 @@ export function Header({children}: {children: React.ReactNode}) {
     useEffect(() => {
       const handleResize = () => setWindow(window.innerWidth);
       window.addEventListener("resize", handleResize);
-      handleResize(); // Set initial width
+      handleResize(); 
       return () => window.removeEventListener("resize", handleResize);
     }, []);
 

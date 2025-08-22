@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {Login} from '../pages/Login';
 import {TaskTrackerPage} from '../pages/TaskTrackerPage';
 import { Register } from '../pages/register';
+import Schedule from '../pages/Schedule';
 
 const router = createBrowserRouter([
     {
@@ -17,8 +18,12 @@ const router = createBrowserRouter([
         element: <Register />,
     },
     {
-        path: "/task-tracker",
+        path: "/dashboard",
         element: <TaskTrackerPage />,
+    },
+    {
+        path: "/schedule",
+        element: <Schedule />,
     }
 ]);
 

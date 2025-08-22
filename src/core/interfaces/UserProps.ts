@@ -1,7 +1,10 @@
+import { TaskProps } from "./Taskprops";
+
 export type userLogin = {
   _id?: string;
   username: string;
   email: string;
+  tasks?: TaskProps[];
 };
 
 export type UserType = userLogin & {

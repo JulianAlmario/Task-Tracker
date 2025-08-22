@@ -29,7 +29,7 @@ export function Login() {
       try {
         const { data } = await refetch(); 
             changeUser(data);
-            nav('/task-tracker');
+            nav('/dashboard');
     } catch (error) {
         setError('Was not possible to login, please try again later');
     }

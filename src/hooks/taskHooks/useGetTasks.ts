@@ -6,6 +6,7 @@ import { getTaskListProps } from "../../core/interfaces/Taskprops";
 
 export const useGetTasks = () => {
     const { userId } = useUserStore();
+    console.log(userId);
     return useQuery<getTaskListProps[]>({
         queryKey: ["tasks", userId],
         queryFn: () => getTasks(userId),

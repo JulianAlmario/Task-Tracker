@@ -3,7 +3,7 @@ import { Home, CalendarCheck , ClipboardList  } from "lucide-react";
 
 export const navbarItems: {name: string, route: string, icon:any}[] = [
     {name: "Home", route: "/home", icon: <Home className="w-4 h-4" />},
-    {name:"Dashboard",route:"7dashboard", icon: <ClipboardList  className="w-4 h-4" />},
+    {name:"Dashboard",route:"/dashboard", icon: <ClipboardList  className="w-4 h-4" />},
     {name:"Schedule",route:"/schedule", icon: <CalendarCheck className="w-4 h-4" />},
 ];
 
